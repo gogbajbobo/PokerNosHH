@@ -1,3 +1,4 @@
 jupyterlab
 jupytext
 requests
+matplotlib
