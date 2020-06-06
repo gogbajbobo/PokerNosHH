@@ -63,7 +63,13 @@ for flop in flops:
         suited_flops.append(flop)
         
 print(f'doubled flops: {len(doubled_flops)} — {100 * len(doubled_flops) / flops.size : .2f}%')
+print(f'doubled flops calc: {100 * (3/51 + 6/50) : .2f}%')
 print(f'tripled flops: {len(tripled_flops)} — {100 * len(tripled_flops) / flops.size : .2f}%')
+print(f'tripled flops calc: {100 * (3/51 * 2/50) : .2f}%')
 print(f'suited flops: {len(suited_flops)} — {100 * len(suited_flops) / flops.size : .2f}%')
+print(f'suited flops calc: {100 * (12/51 * 11/50) : .2f}%')
+
+# %%
+print(tripled_flops)
 
 # %%
