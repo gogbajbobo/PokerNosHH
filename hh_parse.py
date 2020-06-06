@@ -130,6 +130,23 @@ plt.xticks(rotation=90)
 plt.bar(x, y)
 
 # %%
+df_values_pairs = []
+
+for hand in df_values:
+    short = Counter(hand)
+    df_values_pairs.append(''.join(sorted(list(short.keys()))))
+
+unique_elements, counts_elements = np.unique(df_values_pairs, return_counts=True)
+
+# %%
+x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
+y = sorted(counts_elements)
+
+plt.figure(figsize=(20, 5))
+plt.xticks(rotation=90)
+plt.bar(x, y)
+
+# %%
 sf_suites = []
 for flop in suited_flops:
     cards = flop.split()
