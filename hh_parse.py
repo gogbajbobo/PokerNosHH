@@ -83,6 +83,44 @@ print(f'suited flops: {sf_count} — {100 * sf_count / flops.size : .2f}%')
 print(f'suited flops calc: {100 * (12/51 * 11/50) : .2f}%')
 
 # %%
+tripled_flops.sort()
 print(tripled_flops)
+
+# %%
+df_values = []
+for flop in doubled_flops:
+    cards = flop.split()
+    values = [card[0] for card in cards]
+    values.sort()
+    values = ''.join(values)
+    df_values.append(values)
+
+df_values.sort()
+
+unique_elements, counts_elements = np.unique(df_values, return_counts=True)
+
+# %%
+x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
+y = sorted(counts_elements)
+
+plt.figure(figsize=(50, 10))
+plt.xticks(rotation=90)
+plt.bar(x, y)
+
+# %%
+sf_suites = []
+for flop in suited_flops:
+    cards = flop.split()
+    suite = cards[0][1]
+    sf_suites.append(suite)
+
+sf_suites.sort()
+
+unique_elements, counts_elements = np.unique(sf_suites, return_counts=True)
+print(unique_elements, counts_elements)
+
+# %%
+plt.figure(figsize=(10, 5))
+plt.bar(unique_elements, counts_elements)
 
 # %%
