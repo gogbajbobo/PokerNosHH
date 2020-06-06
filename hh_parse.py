@@ -23,6 +23,7 @@ from os import path
 from os import listdir
 import json
 import numpy as np
+import matplotlib.pyplot as plt
 
 # %%
 hh_data_dirname = 'hh_data'
