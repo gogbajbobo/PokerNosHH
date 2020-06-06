@@ -24,6 +24,7 @@ from os import listdir
 import json
 import numpy as np
 import matplotlib.pyplot as plt
+from collections import Counter
 
 # %%
 hh_data_dirname = 'hh_data'
@@ -105,6 +106,26 @@ x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
 y = sorted(counts_elements)
 
 plt.figure(figsize=(50, 10))
+plt.xticks(rotation=90)
+plt.bar(x, y)
+
+# %%
+df_values_short = []
+
+for hand in df_values:
+    short = Counter(hand)
+    for key, value in short.items():
+        if value == 2:
+            df_values_short.append(key)
+
+df_values_short = [f'{v}{v}x' for v in df_values_short]
+unique_elements, counts_elements = np.unique(df_values_short, return_counts=True)
+
+# %%
+x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
+y = sorted(counts_elements)
+
+plt.figure(figsize=(20, 5))
 plt.xticks(rotation=90)
 plt.bar(x, y)
 
