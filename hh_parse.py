@@ -51,8 +51,9 @@ for filename in files:
                 flop = flop_string[flop_string.find('[')+1:flop_string.find(']')]
                 flops = np.append(flops, flop) if len(flop) else flops
                 no_flop_count += 1 if not len(flop) else 0
-        
-print(f'all flops: {flops.size}')
+
+print(f'all hands: {flops.size + no_flop_count}')                
+print(f'flops: {flops.size}')
 print(f'no flop: {no_flop_count}')
 
 # %%
