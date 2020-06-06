@@ -142,7 +142,7 @@ unique_elements, counts_elements = np.unique(df_values_pairs, return_counts=True
 x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
 y = sorted(counts_elements)
 
-plt.figure(figsize=(20, 5))
+plt.figure(figsize=(25, 5))
 plt.xticks(rotation=90)
 plt.bar(x, y)
 
