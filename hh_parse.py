@@ -15,6 +15,10 @@
 # ---
 
 # %%
+# %load_ext autoreload
+# %autoreload 2
+
+# %%
 from os import path
 from os import listdir
 import json
