@@ -34,6 +34,7 @@ for file in files:
 
 # %%
 flops = np.array([])
+no_flop_count = 0
 
 for filename in files:
     with open(path.join(hh_data_dirname, filename), 'r') as file:
@@ -43,13 +44,16 @@ for filename in files:
         hand_indices = np.where(hand_starts == True)[0]
         hands = np.array_split(hh_data, hand_indices)
         for hand in hands:
-            flop_line = np.core.defchararray.startswith(hand, '** Flop **')
-            flop_string = hand[flop_line]
-            flop_string = flop_string[0] if flop_string.size else ''
-            flop = flop_string[flop_string.find('[')+1:flop_string.find(']')]
-            flops = np.append(flops, flop) if len(flop) else flops
-
+            if hand.size:
+                flop_line = np.core.defchararray.startswith(hand, '** Flop **')
+                flop_string = hand[flop_line]
+                flop_string = flop_string[0] if flop_string.size else ''
+                flop = flop_string[flop_string.find('[')+1:flop_string.find(']')]
+                flops = np.append(flops, flop) if len(flop) else flops
+                no_flop_count += 1 if not len(flop) else 0
+        
 print(f'all flops: {flops.size}')
+print(f'no flop: {no_flop_count}')
 
 # %%
 doubled_flops = []
