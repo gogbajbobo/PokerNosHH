@@ -105,7 +105,7 @@ tf_count = len(tripled_flops)
 sf_count = len(suited_flops)
         
 print(f'doubled flops: {df_count} — {100 * df_count / flops.size : .2f}%')
-print(f'doubled flops calc: {100 * (3/51 + 6/50) : .2f}%')
+print(f'doubled flops calc: {100 * (3/51 + 6/50 - 3/51 * 2/50) : .2f}%')
 print(f'tripled flops: {tf_count} — {100 * tf_count / flops.size : .2f}%')
 print(f'tripled flops calc: {100 * (3/51 * 2/50) : .2f}%')
 print(f'suited flops: {sf_count} — {100 * sf_count / flops.size : .2f}%')
