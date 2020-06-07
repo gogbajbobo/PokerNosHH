@@ -35,7 +35,12 @@ for file in files:
 
 # %%
 flops = np.array([])
-no_flop_count = 0
+hands_count = 0
+ends_on_preflop = 0
+ends_on_flop = 0
+ends_on_turn = 0
+ends_on_river = 0
+ends_on_showdown = 0
 
 for filename in files:
     with open(path.join(hh_data_dirname, filename), 'r') as file:
@@ -51,11 +56,33 @@ for filename in files:
                 flop_string = flop_string[0] if flop_string.size else ''
                 flop = flop_string[flop_string.find('[')+1:flop_string.find(']')]
                 flops = np.append(flops, flop) if len(flop) else flops
-                no_flop_count += 1 if not len(flop) else 0
+                summary_line = np.core.defchararray.startswith(hand, '** Summary **')
+                summary_string = hand[summary_line]
+                if summary_string.size == 0:
+                    continue
+                summary_string_index = list(hand).index(summary_string)
+                summary_info = hand[summary_string_index + 1]
+                end_info = summary_info.split(',')[-1].split()[-1]
+                if end_info == 'PreFlop':
+                    ends_on_preflop += 1
+                elif end_info == 'Flop':
+                    ends_on_flop += 1
+                elif end_info == 'Turn':
+                    ends_on_turn += 1
+                elif end_info == 'River':
+                    ends_on_river += 1
+                elif end_info == 'Showdown':
+                    ends_on_showdown += 1
+                hands_count += 1
 
-print(f'all hands: {flops.size + no_flop_count}')                
+
+print(f'all hands: {hands_count}')                
 print(f'flops: {flops.size}')
-print(f'no flop: {no_flop_count}')
+print(f'Ends on preflop: {ends_on_preflop} — {100 * ends_on_preflop / hands_count : .2f}%')
+print(f'Ends on flop: {ends_on_flop} — {100 * ends_on_flop / hands_count : .2f}%')
+print(f'Ends on turn: {ends_on_turn} — {100 * ends_on_turn / hands_count : .2f}%')
+print(f'Ends on river: {ends_on_river} — {100 * ends_on_river / hands_count : .2f}%')
+print(f'Ends on showdown: {ends_on_showdown} — {100 * ends_on_showdown / hands_count : .2f}%')
 
 # %%
 doubled_flops = []
