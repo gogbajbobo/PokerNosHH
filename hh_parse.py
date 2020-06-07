@@ -127,6 +127,7 @@ for flop in doubled_flops:
 df_values.sort()
 
 unique_elements, counts_elements = np.unique(df_values, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
 
 # %%
 x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
@@ -147,6 +148,7 @@ for hand in df_values:
 
 df_values_short = [f'{v}{v}x' for v in df_values_short]
 unique_elements, counts_elements = np.unique(df_values_short, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
 
 # %%
 x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
@@ -164,6 +166,7 @@ for hand in df_values:
     df_values_pairs.append(''.join(sorted(list(short.keys()))))
 
 unique_elements, counts_elements = np.unique(df_values_pairs, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
 
 # %%
 x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
@@ -183,6 +186,7 @@ for flop in suited_flops:
 sf_suites.sort()
 
 unique_elements, counts_elements = np.unique(sf_suites, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
 print(unique_elements, counts_elements)
 
 # %%
