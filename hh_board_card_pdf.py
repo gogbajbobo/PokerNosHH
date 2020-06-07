@@ -23,6 +23,7 @@ from os import listdir
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+from collections import Counter
 
 # %%
 hh_data_dirname = 'hh_data'
@@ -62,11 +63,16 @@ print(f'boards: {boards}')
 # %%
 card_values = np.array([])
 card_suites = np.array([])
+fd_suites = np.array([])
 
 for board in boards:
     cards = board.split()
     values = [card[0] for card in cards]
     suites = [card[1] for card in cards]
+    suites_counter = Counter(suites)
+    for sc in suites_counter.keys():
+        if suites_counter[sc] >= 3:
+            fd_suites = np.append(fd_suites, sc)
     card_values = np.append(card_values, values)
     card_suites = np.append(card_suites, suites)
 
@@ -86,6 +92,21 @@ plt.bar(x, y)
 
 # %%
 unique_elements, counts_elements = np.unique(card_suites, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
+
+# %%
+x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
+y = sorted(counts_elements)
+
+print(x)
+print(y)
+
+
+plt.figure(figsize=(20, 10))
+plt.bar(x, y)
+
+# %%
+unique_elements, counts_elements = np.unique(fd_suites, return_counts=True)
 print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
 
 # %%
