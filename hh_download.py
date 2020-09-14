@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.4.2
+#       jupytext_version: 1.5.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -26,6 +26,7 @@ response = requests.get(url, payload)
 data = response.json()
 number_of_files = data["Files"]
 print(f'Files: {number_of_files}')
+print(data['Date'])
 
 # %%
 hh_data_dirname = 'hh_data'
