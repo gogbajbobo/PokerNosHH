@@ -139,3 +139,50 @@ plt.figure(figsize=(20, 10))
 plt.bar(x, y)
 
 # %%
+turn_card_values = np.array([])
+river_card_values = np.array([])
+
+for board in boards:
+    cards = board.split()
+    if len(cards) >= 4:
+        turn_card = cards[3]
+        turn_card_values = np.append(turn_card_values, turn_card[0])
+        if len(cards) >= 5:
+            river_card = cards[4]
+            river_card_values = np.append(river_card_values, river_card[0])
+
+turn_cards_counter = Counter(turn_card_values)
+river_cards_counter = Counter(river_card_values)
+
+print(turn_cards_counter)
+print(river_cards_counter)
+
+# %%
+unique_elements, counts_elements = np.unique(turn_card_values, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
+
+# %%
+x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
+y = sorted(counts_elements)
+
+print(x)
+print(y)
+
+plt.figure(figsize=(20, 10))
+plt.bar(x, y)
+
+# %%
+unique_elements, counts_elements = np.unique(river_card_values, return_counts=True)
+print(f'mean: {np.mean(counts_elements) : .2f}, std: {np.std(counts_elements) : .2f}')
+
+# %%
+x = [x for _, x in sorted(zip(counts_elements, unique_elements))]
+y = sorted(counts_elements)
+
+print(x)
+print(y)
+
+plt.figure(figsize=(20, 10))
+plt.bar(x, y)
+
+# %%
