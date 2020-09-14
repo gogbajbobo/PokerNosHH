@@ -27,7 +27,8 @@ from collections import Counter
 
 # %%
 hh_data_dirname = 'hh_data'
-files = [f for f in listdir(hh_data_dirname) if path.isfile(path.join(hh_data_dirname, f)) and f.endswith('.txt') and f.startswith('2020-05-')]
+files_filter = lambda f: path.isfile(path.join(hh_data_dirname, f)) and f.endswith('.txt') and f.startswith('2020-')
+files = [f for f in listdir(hh_data_dirname) if files_filter(f)]
 files.sort()
 for file in files:
     print(file)
@@ -73,7 +74,7 @@ for index, summary in enumerate(summaries):
             balance /= blinds[index]
             p_balances.append(balance)
             players_balances[nickname] = p_balances
-        
+
 for player in players_balances:
     p_balances = np.asarray(players_balances[player])
     p_b_win = np.asarray([b for b in p_balances if b > 0])
