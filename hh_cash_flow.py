@@ -23,7 +23,7 @@ from os import listdir
 import numpy as np
 import json
 import matplotlib.pyplot as plt
-from collections import Counter
+import math
 
 # %%
 hh_data_dirname = 'hh_data'
@@ -64,7 +64,7 @@ print(f'summaries: {len(summaries)}')
 # %%
 players_cash_flows = {}
 
-_summaries = summaries[0:100]
+_summaries = summaries[:]
 for index, summary in enumerate(_summaries):
     
     players_info = [s for s in summary if s.startswith('Seat')]
@@ -75,11 +75,13 @@ for index, summary in enumerate(_summaries):
         balance = int(player_info[player_info.find('(')+1:player_info.find(')')])
         if balance != 0:
             hand_info[nickname] = balance
-    print(hand_info)
     winners = dict(filter(lambda player: player[1] > 0, hand_info.items()))
     loosers = dict(filter(lambda player: player[1] < 0, hand_info.items()))
-#     print(f'winners {winners}')
-#     print(f'loosers {loosers}')
+
+    if len(loosers) == 0:
+        print('--- Have no loosers! ---')
+        print(hand_info)
+        continue
     
     if len(winners) == 1 and len(loosers) == 1:
         
@@ -118,7 +120,28 @@ for index, summary in enumerate(_summaries):
             players_cash_flows[looser] = looser_cash_flows
 
     else:
-        print(f'!!! {index}')
+        
+        for winner, win in winners.items():
+                                
+            for looser, loose in loosers.items():
+                
+                loose /= len(winners)
+#                 if math.modf(loose)[0] != 0:
+#                     print(f'math.modf(loose)[0] != 0 {loose}, {index}')
+#                     print(hand_info)
+                loose = round(loose)
+        
+                winner_cash_flows = players_cash_flows[winner] if winner in players_cash_flows else {looser: 0}
+                looser_cash_flows = players_cash_flows[looser] if looser in players_cash_flows else {winner: 0}
+
+                win_prev = winner_cash_flows[looser] if looser in winner_cash_flows else 0
+                winner_cash_flows[looser] = win_prev - loose
+                players_cash_flows[winner] = winner_cash_flows
+
+                loose_prev = looser_cash_flows[winner] if winner in looser_cash_flows else 0
+                looser_cash_flows[winner] = loose + loose_prev
+                players_cash_flows[looser] = looser_cash_flows
+
         
 print(players_cash_flows)
 
